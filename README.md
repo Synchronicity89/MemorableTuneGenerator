@@ -1,0 +1,2 @@
+# MemorableTuneGenerator
+Popular tunes (the chorus melody from hit songs, for example) are easily memorized by humans.  Why is this?  It must be because the melody's rhythm and pitch data is compressed by the human brain somehow, It should be possible to filter compressible tunes from randomly generated tunes.  A simple test would to have a neural net listen to a tune a few times.  If it can memorize the tune easily it is a candidate as possibly being a popular tune.
