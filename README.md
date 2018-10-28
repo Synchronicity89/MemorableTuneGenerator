@@ -1,2 +1,10 @@
 # MemorableTuneGenerator
 Popular tunes (the chorus melody from hit songs, for example) are easily memorized by humans.  Why is this?  It must be because the melody's rhythm and pitch data is compressed by the human brain somehow, It should be possible to filter compressible tunes from randomly generated tunes.  A simple test would to have a neural net listen to a tune a few times.  If it can memorize the tune easily it is a candidate as possibly being a popular tune.
+
+An idea is to come up with a deep learning neural network that takes MIDI files and tries to compress them to the smallest size possible, in its own mysterious format, I believe it will have captured elements of the music that are repeating. Such repeating patterns of rhythm and pitch change, that make a piece memorable in humans.  Humans can't remember a tune that consists of dozens of random pitches in a random rhythm (unless you are Steve Vai, perhaps).
+
+If the neural network can compress a melody into a small file size compared to the original MIDI it probably is a human-memorable melody as well.  
+
+Some basics (for the uninitiated): There are two phases to neural networks: Development,  where a lot of CPU/GPU is used to train a neural network.  Production, where there may be no training of neural networks (that might change as AI advances), and instead there is only inference  where the model created by the training of the neural network is used to process input to produce an output.  This can happen really fast, without much CPU power. 
+
+So, we can feed the trained neural network inference model random MIDI melodies and see how small the result is.  The smaller the result, the more likely a human could memorize it, because it must have contained repeated patterns. If a human can memorize a melody, while perhaps being forced to create a new synapse or two to accomodate something unique about the melody it will be burnt into the humans mind - a Memorable Tune, that could be popular and lucrative for the composer, or just pleasant. 
