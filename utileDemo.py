@@ -57,6 +57,7 @@ class baroque:
         self.channel = 0
         self.volume = 100 
 
+        #The most common scales, by relative number semi-tones from root 
         self.major = [0, 2, 4, 5, 7, 9, 11]
         self.minorAsc = [0, 2, 3, 5, 7, 9, 11]
         self.minorDesc = [0, 2, 3, 5, 7, 8, 10]
