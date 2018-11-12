@@ -1,5 +1,7 @@
 #This is just a POC of use of python3-midi to generate the same music as
 #baroque.py, but in an uncompressed/non algorithmic manner. 
+#if it doesn't install easily for python 3 try this
+#pip install git+https://github.com/vishnubob/python-midi@feature/python3
 import midi
 
 pattern = midi.Pattern()
