@@ -39,21 +39,26 @@ class baroque:
             mult = mult - 1
             pitch = self.Extend(diatonic, key, scale)
         self.mf.addNote(track, self.channel, pitch, time, duration * 3, self.volume)
-        time = time + duration * 4
+       # self.time = self.time + duration * 4
         return time
 
-    def __init__(self):
+    def __init__(self, trackNames):
         # create your MIDI object
-        self.mf = MIDIFile(2)     # only 1 track
-        self.track0 = 0   # the only track
-        self.track1 = 1
+        self.mf = MIDIFile(len(trackNames))
+        self.track = [0] * len(trackNames)
+        self.time = [1] * len(trackNames)
+        index = 0
 
-        timeT = 0    # start at the beginning
-        timeB = 0    # start at the beginning
-        self.mf.addTrackName(self.track0, timeT, "Treble")
-        self.mf.addTempo(self.track0, timeT, 120)
-        self.mf.addTrackName(self.track1, timeB, "Bass")
-        self.mf.addTempo(self.track1, timeB, 120)
+        #proj.time[0] = 0    # start at the beginning
+        #proj.time[1] = 0    # start at the beginning
+        #self.mf.addTrackName(self.track[1], proj.time[1], "Bass")
+        #self.mf.addTempo(self.track[1], proj.time[1], 120)
+        for name in trackNames:
+            #self.track.append(index)
+            self.mf.addTrackName(self.track[index], self.time[index], trackNames[index])
+            self.mf.addTempo(self.track[index], self.time[index], 120)
+            index = index + 1
+
 
         # add some notes
         self.channel = 0
@@ -65,89 +70,91 @@ class baroque:
         self.minorDesc = [0, 2, 3, 5, 7, 8, 10]
         self.minorHarm = [0, 2, 3, 5, 7, 8, 11]
 
-        #baroque example
-        key = 69
-        scale = self.minorDesc
-        down = [-1]
-        mult = 3
+trackNames = ["Treble", "Bass"]
+proj = baroque(trackNames)
 
-        duration = 1
+#baroque example
+key = 69
+scale = proj.minorDesc
+down = [-1]
+mult = 3
 
-        self.mf.addNote(self.track1, self.channel, key - 24, timeB, 4, self.volume)
-        timeB = timeB + 4
-        times = 2
-        while times > 0:
-            diatonic = 4
-            times = times - 1
-            timeT = self.mainRiff(key, scale, down, mult, diatonic, timeT, duration, self.track0)
+duration = 1
 
-            diatonic = 5
-            timeB = self.mainRiff(key - 24, scale, down, mult, diatonic, timeB, duration, self.track1)
+proj.mf.addNote(proj.track[1], proj.channel, key - 24, proj.time[1], 4, proj.volume)
+proj.time[1] += 4
+times = 2
+while times > 0:
+    diatonic = 4
+    times = times - 1
+    proj.time[0] = proj.mainRiff(key, scale, down, mult, diatonic, proj.time[0], duration, proj.track[0])
 
-            timeT = self.mainRiff(key, scale, down, mult, diatonic, timeT, duration, self.track0)
+    diatonic = 5
+    proj.time[1] = proj.mainRiff(key - 24, scale, down, mult, diatonic, proj.time[1], duration, proj.track[1])
 
-            diatonic = 6
-            timeB = self.mainRiff(key - 24, scale, down, mult, diatonic, timeB, duration, self.track1)
+    proj.time[0] = proj.mainRiff(key, scale, down, mult, diatonic, proj.time[0], duration, proj.track[0])
 
-            intervals = [2, 0]
-            diatonic = 2
-            arp = arpeggio(intervals)
-            pitches = arp.Render(diatonic, key, scale, duration, False)
-            for pitch in pitches:
-                self.mf.addNote(self.track0, self.channel, pitch, timeT, duration, self.volume)
-                timeT = timeT + duration
+    diatonic = 6
+    proj.time[1] = proj.mainRiff(key - 24, scale, down, mult, diatonic, proj.time[1], duration, proj.track[1])
 
-            diatonic = 3
-            arp = arpeggio(intervals)
-            pitches = arp.Render(diatonic, key, scale, duration, False)
-            for pitch in pitches:
-                self.mf.addNote(self.track0, self.channel, pitch, timeT, duration, self.volume)
-                timeT = timeT + duration
+    intervals = [2, 0]
+    diatonic = 2
+    arp = arpeggio(intervals)
+    pitches = arp.Render(diatonic, key, scale, duration, False)
+    for pitch in pitches:
+        proj.mf.addNote(proj.track[0], proj.channel, pitch, proj.time[0], duration, proj.volume)
+        proj.time[0] = proj.time[0] + duration
 
-            intervals = [7, 5, 3, 0]
-            diatonic = -1
-            arp = arpeggio(intervals)
-            pitches = arp.Render(diatonic, key, scale, duration, False)
-            for pitch in pitches:
-                self.mf.addNote(self.track0, self.channel, pitch, timeT, duration, self.volume)
-                timeT = timeT + duration
+    diatonic = 3
+    arp = arpeggio(intervals)
+    pitches = arp.Render(diatonic, key, scale, duration, False)
+    for pitch in pitches:
+        proj.mf.addNote(proj.track[0], proj.channel, pitch, proj.time[0], duration, proj.volume)
+        proj.time[0] = proj.time[0] + duration
 
-            self.mf.addNote(self.track1, self.channel, key - 24 - 2, timeB, duration * 4, self.volume)
-            timeB = timeB + duration * 4
+    intervals = [7, 5, 3, 0]
+    diatonic = -1
+    arp = arpeggio(intervals)
+    pitches = arp.Render(diatonic, key, scale, duration, False)
+    for pitch in pitches:
+        proj.mf.addNote(proj.track[0], proj.channel, pitch, proj.time[0], duration, proj.volume)
+        proj.time[0] = proj.time[0] + duration
 
-            self.mf.addNote(self.track1, self.channel, key - 24 - 4, timeB, duration * 2, self.volume)
-            timeB = timeB + duration * 2
-            self.mf.addNote(self.track1, self.channel, key - 24 - 2, timeB, duration * 2, self.volume)
-            timeB = timeB + duration * 2
+    proj.mf.addNote(proj.track[1], proj.channel, key - 24 - 2, proj.time[1], duration * 4, proj.volume)
+    proj.time[1] = proj.time[1] + duration * 4
 
-            diatonic = 4
-            timeB = self.mainRiff(key - 24, scale, down, mult, diatonic, timeB, duration, self.track1)
+    proj.mf.addNote(proj.track[1], proj.channel, key - 24 - 4, proj.time[1], duration * 2, proj.volume)
+    proj.time[1] = proj.time[1] + duration * 2
+    proj.mf.addNote(proj.track[1], proj.channel, key - 24 - 2, proj.time[1], duration * 2, proj.volume)
+    proj.time[1] = proj.time[1] + duration * 2
 
-            intervals = [2, 0]
-            diatonic = 0
-            arp = arpeggio(intervals)
-            pitches = arp.Render(diatonic, key, scale, duration, True)
-            for pitch in pitches:
-                self.mf.addNote(self.track0, self.channel, pitch, timeT, duration, self.volume)
-                timeT = timeT + duration
+    diatonic = 4
+    proj.time[1] = proj.mainRiff(key - 24, scale, down, mult, diatonic, proj.time[1], duration, proj.track[1])
 
-            #intervals = [2, 0]
-            diatonic = 1
-            arp = arpeggio(intervals)
-            pitches = arp.Render(diatonic, key, scale, duration, True)
-            for pitch in pitches:
-                self.mf.addNote(self.track0, self.channel, pitch, timeT, duration, self.volume)
-                timeT = timeT + duration
+    intervals = [2, 0]
+    diatonic = 0
+    arp = arpeggio(intervals)
+    pitches = arp.Render(diatonic, key, scale, duration, True)
+    for pitch in pitches:
+        proj.mf.addNote(proj.track[0], proj.channel, pitch, proj.time[0], duration, proj.volume)
+        proj.time[0] = proj.time[0] + duration
 
-            self.mf.addNote(self.track0, self.channel, key + 3, timeT, duration * 2, self.volume)
-            timeT = timeT + duration * 4
+    #intervals = [2, 0]
+    diatonic = 1
+    arp = arpeggio(intervals)
+    pitches = arp.Render(diatonic, key, scale, duration, True)
+    for pitch in pitches:
+        proj.mf.addNote(proj.track[0], proj.channel, pitch, proj.time[0], duration, proj.volume)
+        proj.time[0] = proj.time[0] + duration
+
+    proj.mf.addNote(proj.track[0], proj.channel, key + 3, proj.time[0], duration * 2, proj.volume)
+    proj.time[0] = proj.time[0] + duration * 4
+
+    # write it to disk
+    with open("output.mid", 'wb') as outf:
+        proj.mf.writeFile(outf)
 
 
-        # write it to disk
-        with open("output.mid", 'wb') as outf:
-            self.mf.writeFile(outf)
- 
-proj = baroque()
 
 
 
