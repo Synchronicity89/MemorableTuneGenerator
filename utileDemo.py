@@ -20,7 +20,7 @@ class arpeggio:
             
         
 
-class baroque:
+class MidiPiece:
 
     def Extend(self, diatonic, key, scale):
         pitch = key + scale[diatonic % 7]
@@ -71,7 +71,7 @@ class baroque:
         self.minorHarm = [0, 2, 3, 5, 7, 8, 11]
 
 trackNames = ["Treble", "Bass"]
-proj = baroque(trackNames)
+proj = MidiPiece(trackNames)
 
 #baroque example
 key = 69
