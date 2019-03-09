@@ -1,5 +1,5 @@
 #This is just a POC of use of python3-midi to generate the same music as
-#baroque.py, but in an uncompressed/non algorithmic manner. 
+#utileDemo.py, but in an uncompressed/non algorithmic manner. 
 #if it doesn't install easily for python 3 try this
 #pip install git+https://github.com/vishnubob/python-midi@feature/python3
 import midi
@@ -26,8 +26,10 @@ for lowerBound in range(1, 10):
 #write a simplistic example 
 midi.write_midifile("{}.mid".format(name), pattern)
 
-#write the same example that baroque.py writes, but without using pattern repetition
+#write the same example that utileDemo.py writes, but without using pattern repetition
 #It was created by copying the output.mid file to the python3-midi folder and cd'ing there
+#and using python3-midi for generating the code from an existing binary MIDI file.
+#I then pasted the generated code in here
 #
 #midi.write_midifile("{}.mid".format(name), pattern)
 pattern1 = midi.Pattern(format=1, resolution=960, tracks=\
