@@ -23,20 +23,6 @@ class MidiPiece:
             return pitch + 12 * (round(diatonic /7))
         return pitch
 
-    def mainRiffOLD(self, key, scale, down, mult, diatonic, time, duration, track):
-        #main riff
-        while mult > -1:
-            for interval in down:
-                pitch = self.Extend(diatonic, key, scale)
-                self.mf.addNote(track, self.channel, pitch, time, duration, self.volume)
-                time = time + duration
-                diatonic = diatonic + interval
-            mult = mult - 1
-            pitch = self.Extend(diatonic, key, scale)
-        self.mf.addNote(track, self.channel, pitch, time, duration * 3, self.volume)
-       # self.time = self.time + duration * 4
-        return time
-
     def mainRiff(self, key, scale, down, mult, diatonic, timeIndex, duration, track):
         #main riff
         while mult > -1:
