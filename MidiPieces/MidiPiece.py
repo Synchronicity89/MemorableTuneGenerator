@@ -35,7 +35,32 @@ class MidiPiece:
             pitch = self.Extend(diatonic, key, scale)
         self.mf.addNote(track, self.channel, pitch, self.time[timeIndex], duration * 3, self.volume)
         self.time[timeIndex] += duration * 4
-        #return time
+
+    def addNote(self, trackIndex, channel, key, timeIndex, duration, rest = 0, volume = -1):
+        """
+        Add a note.  
+        
+        If rest is negative it is added before the note, if positive it is added after
+        Parameters
+        ----------
+        trackIndex : index of the track
+        channel : midi channel
+        key : root pitch for relative pitch calculation
+        rest : if negative abs(rest) is added before the note, if positive rest is added after, optional
+        volume : volume of note, optional
+        """
+        if volume == -1:
+            vol = self.volume
+        else:
+            vol = volume
+        if rest < 0:
+            self.time[timeIndex] += abs(rest)
+            
+        self.mf.addNote(self.track[trackIndex], channel, key, self.time[timeIndex], duration, vol)
+        moreTime = 0
+        if rest > 0:
+            moreTime = rest
+        self.time[timeIndex] += duration + moreTime
 
     def __init__(self, trackNames):
         # create your MIDI object
