@@ -89,3 +89,7 @@ ENV/
 .ropeproject
 *.suo
 /.vs
+/AMusicEnv
+/MidiCsvCompression/bin
+/MidiCsvCompression/obj
+/UpgradeLog.htm

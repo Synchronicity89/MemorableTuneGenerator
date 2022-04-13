@@ -1,0 +1,3 @@
+[submodule "py_midicsv"]
+	path = py_midicsv
+	url = https://github.com/timwedde/py_midicsv.git

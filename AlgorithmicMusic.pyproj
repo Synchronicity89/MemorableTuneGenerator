@@ -5,13 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b3ae72c2-412f-4d56-8a9d-a066d8f178c3</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>utileDemo.py</StartupFile>
+    <StartupFile>py_midicsv\UseMidiCSV.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>AlgorithmicMusic</Name>
     <RootNamespace>AlgorithmicMusic</RootNamespace>
+    <InterpreterId>MSBuild|AMusicEnv|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,16 +24,43 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AlgorithmicMusic.py" />
+    <Compile Include="py_midicsv\py_midicsv\cli.py" />
+    <Compile Include="py_midicsv\py_midicsv\csvmidi.py" />
+    <Compile Include="py_midicsv\py_midicsv\csv_converters.py" />
+    <Compile Include="py_midicsv\py_midicsv\events.py" />
+    <Compile Include="py_midicsv\py_midicsv\midicsv.py" />
+    <Compile Include="py_midicsv\py_midicsv\midi\constants.py" />
+    <Compile Include="py_midicsv\py_midicsv\midi\containers.py" />
+    <Compile Include="py_midicsv\py_midicsv\midi\events.py" />
+    <Compile Include="py_midicsv\py_midicsv\midi\fileio.py" />
+    <Compile Include="py_midicsv\py_midicsv\midi\util.py" />
+    <Compile Include="py_midicsv\py_midicsv\midi_converters.py" />
+    <Compile Include="py_midicsv\UseMidiCSV.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="utileDemo.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="AMusicEnv\">
+      <Id>AMusicEnv</Id>
+      <Version>3.6</Version>
+      <Description>AMusicEnv (Python 3.6 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="py_midicsv\" />
+    <Folder Include="py_midicsv\py_midicsv\" />
+    <Folder Include="py_midicsv\py_midicsv\midi\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
-  <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
-  <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in
        the BeforeBuild and AfterBuild targets below. -->
@@ -41,4 +69,5 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
