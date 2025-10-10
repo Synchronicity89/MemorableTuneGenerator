@@ -1,4 +1,7 @@
 # MemorableTuneGenerator
+
+I paused work on this particular repo years ago, but lately I started a new repo that does similar things: https://github.com/Synchronicity89/BachEncode
+
 Popular tunes (the chorus melody from hit songs, for example) are easily memorized by humans.  Why is this?  It must be because the melody's rhythm and pitch data is compressed by the human brain somehow, It should be possible to filter compressible tunes from randomly generated tunes.  A simple test would to have a neural net listen to a tune a few times.  If it can memorize the tune easily it is a candidate as possibly being a popular tune.
 
 An idea is to come up with a deep learning neural network that takes MIDI files and tries to compress them to the smallest size possible, in its own mysterious format, I believe it will have captured elements of the music that are repeating. Such repeating patterns of rhythm and pitch change, that make a piece memorable in humans.  Humans can't remember a tune that consists of dozens of random pitches in a random rhythm (unless you are Steve Vai, perhaps).
